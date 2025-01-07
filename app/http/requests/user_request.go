@@ -1,11 +1,10 @@
 package requests
 
 type RegisterRequest struct {
-	Name  string `json:"name" form:"name" validate:"required"`
-	Email string `json:"email" validate:"required,email"`
-	// Phone                string `json:"phone" validate:"required"`
+	Name     string `json:"name" form:"name" validate:"required"`
+	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required"`
-	// PasswordConfirmation string `json:"password_confirmation" form:"password_confirmation" validate:"eqfield=Password"`
+	Role     string `json:"role" form:"role"`
 }
 
 type LoginRequest struct {

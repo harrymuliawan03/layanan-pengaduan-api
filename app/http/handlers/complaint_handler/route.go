@@ -18,6 +18,7 @@ func ComplaintRoute(route fiber.Router, cnf *configs.Config) {
 
 	complaint.Get("/", handler.FindAll)
 	complaint.Get("", handler.FindAll)
+	complaint.Get("/user/:id", handler.FindAllByUserID)
 	complaint.Get("/:id", handler.Show)
 	complaint.Put("/:id", handler.Update)
 	complaint.Post("/", handler.Create)

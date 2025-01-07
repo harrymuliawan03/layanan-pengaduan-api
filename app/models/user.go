@@ -14,8 +14,6 @@ type User struct {
 	Email         string  `gorm:"size:255;not null;uniqueIndex"`
 	Password      string  `gorm:"size:255;not null"`
 	Role          string  `gorm:"size:255;not null"`
-	RememberToken *string `gorm:"size:100"`
-	Status        int16   `gorm:"not null;default:1"`
 	CreatedAt     time.Time
 	UpdatedAt     time.Time
 	DeletedAt     gorm.DeletedAt `gorm:"index"`

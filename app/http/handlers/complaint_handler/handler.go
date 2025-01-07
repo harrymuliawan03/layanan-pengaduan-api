@@ -60,6 +60,24 @@ func (u *ComplaintHandler) FindAll(ctx *fiber.Ctx) error {
 	return dto.ResponseApiOk(ctx, "get Complaints successfully", res)
 }
 
+func (u *ComplaintHandler) FindAllByUserID(ctx *fiber.Ctx) error {
+	c, cancel := context.WithTimeout(ctx.Context(), 10*time.Second)
+	defer cancel()
+
+	id, _ := ctx.ParamsInt("id")
+
+	if id == 0 {
+		return dto.ResponseApiError(ctx, "Complaint id is required", http.StatusBadRequest, nil)
+	}
+
+	res, err := u.cs.FindAllByUserID(c, uint(id))
+	if err != nil {
+		return dto.ResponseApiError(ctx, err.Error(), http.StatusInternalServerError, err.Error())
+	}
+
+	return dto.ResponseApiOk(ctx, "get Complaints successfully", res)
+}
+
 func (u *ComplaintHandler) Show(ctx *fiber.Ctx) error {
 	c, cancel := context.WithTimeout(ctx.Context(), 10*time.Second)
 	defer cancel()

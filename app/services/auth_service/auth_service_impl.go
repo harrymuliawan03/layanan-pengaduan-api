@@ -51,7 +51,7 @@ func (u *AuthServiceImpl) Login(ctx context.Context, req *requests.LoginRequest)
 		return dto.LoginResponse{}, err
 	}
 
-	return dto.LoginResponse{Valid: true, Name: res.Name, Email: res.Email}, nil
+	return dto.LoginResponse{Valid: true, Name: res.Name, Email: res.Email, Roles: res.Role, ID: res.ID}, nil
 }
 
 // Create implements UserService.
@@ -60,6 +60,7 @@ func (u *AuthServiceImpl) Register(ctx context.Context, req *requests.RegisterRe
 		Email:     req.Email,
 		Name:      req.Name,
 		Password:  req.Password,
+		Role: func() string { if req.Role != "" { return req.Role }; return "user" }(),
 	}
 
 	err := u.userRepository.Save(ctx, &data)

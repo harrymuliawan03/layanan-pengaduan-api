@@ -17,6 +17,27 @@ type ComplaintServiceImpl struct {
 }
 
 // FindAllByUserID implements ComplaintService.
+func (c *ComplaintServiceImpl) FindAllByUserID(ctx context.Context, id uint) ([]dto.ComplaintData, error) {
+	var result []dto.ComplaintData
+
+	complaints, err := c.complaintRepo.FindAllByUserID(ctx, id)
+	for _, complaint := range complaints {
+		result = append(result, dto.ComplaintData{
+			ID:          complaint.ID,
+			Title:       complaint.Title,
+			Description: complaint.Description,
+			UserID:      complaint.UserID,
+			Status:      complaint.Status,
+			Photo:       complaint.Photo,
+			Address:     complaint.Address,
+	})
+	
+	}
+
+	return result, err
+}
+
+// FindAllByUserID implements ComplaintService.
 func (c *ComplaintServiceImpl) FindAll(ctx context.Context) ([]dto.ComplaintData, error) {
 	var result []dto.ComplaintData
 

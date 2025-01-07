@@ -19,6 +19,12 @@ func (c *ComplaintRepositoryImpl) FindAll(ctx context.Context) (result []models.
 	return
 }
 
+// FindAllByUserID implements ComplaintRepository.
+func (c *ComplaintRepositoryImpl) FindAllByUserID(ctx context.Context, id uint) (result []models.Complaint, err error) {
+	err = c.orm.Where("user_id = ?", id).Find(&result).Error
+	return
+}
+
 // Delete implements ComplaintRepository.
 func (c *ComplaintRepositoryImpl) Delete(ctx context.Context, id uint) error {
 	return c.orm.WithContext(ctx).Where("id = ?", id).Delete(&models.Complaint{}).Error
